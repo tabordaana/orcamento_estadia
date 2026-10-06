@@ -79,6 +79,38 @@ CREATE TABLE IF NOT EXISTS usuario (
     CHECK (length(trim(email)) > 0)
 );
 
+DROP INDEX if exists idx_usuario_nome; 
+DROP INDEX if exists idx_usuario_ativo;
+DROP INDEX if exists idx_endereco_cep;
+DROP INDEX if exists idx_atividade_nome;
+DROP INDEX if exists idx_acomodacao_anfitriao;
+
+DROP INDEX IF EXISTS idx_acomodacao_endereco;
+DROP INDEX IF EXISTS idx_acomodacao_tipo;
+DROP INDEX IF EXISTS idx_acomodacao_status;
+DROP INDEX IF EXISTS idx_foto_acomodacao;
+DROP INDEX IF EXISTS idx_reserva_acomodacao;
+DROP INDEX IF EXISTS idx_reserva_hospede;
+DROP INDEX IF EXISTS idx_reserva_datas;
+DROP INDEX IF EXISTS idx_reserva_status;
+DROP INDEX IF EXISTS idx_reserva_atividade_acomodacao;
+DROP INDEX IF EXISTS idx_regra_estacao_estacao;
+DROP INDEX IF EXISTS idx_regra_estacao_tipo;
+DROP INDEX IF EXISTS idx_feriado_datas;
+DROP INDEX IF EXISTS idx_regra_feriado_feriado;
+DROP INDEX IF EXISTS idx_regra_feriado_acomodacao;
+DROP INDEX IF EXISTS idx_demanda_acomodacao;
+DROP INDEX IF EXISTS idx_demanda_nivel;
+DROP INDEX IF EXISTS idx_demanda_datas;
+DROP INDEX IF EXISTS idx_regra_desconto_acomodacao;
+DROP INDEX IF EXISTS idx_historico_preco_acomodacao;
+DROP INDEX IF EXISTS idx_historico_preco_datas;
+DROP INDEX IF EXISTS idx_regra_estacao_atividade_atividade;
+DROP INDEX IF EXISTS idx_regra_estacao_atividade_estacao;
+DROP INDEX IF EXISTS idx_ocorrencia_reserva;
+DROP INDEX IF EXISTS idx_ocorrencia_tipo;
+DROP INDEX IF EXISTS idx_status_hospede_usuario;
+DROP INDEX IF EXISTS idx_status_hospede_periodo;
 
 CREATE INDEX idx_usuario_nome
 ON usuario(nome);

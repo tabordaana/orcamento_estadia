@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+
+{% block title %}Acomodações | Meu Projeto{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <div>
+    <h1 class="mb-1">Acomodações</h1>
+    <p class="text-body-secondary mb-0">
+      Gerencie as acomodações cadastradas.
+    </p>
+  </div>
+
+  <a
+    class="btn btn-primary"
+    href="{{ url_for('acomodacoes.novo_registro') }}"
+  >
+    Nova acomodação
+  </a>
+</div>
+
+
+{% if records %}
+
+<div class="table-responsive card shadow-sm">
+
+  <table class="table table-hover align-middle mb-0">
+
+    <thead>
+      <tr>
+        <th>Título</th>
+        <th>Tipo</th>
+        <th>Capacidade</th>
+        <th>Quartos</th>
+        <th>Banheiros</th>
+        <th>Pet</th>
+        <th>Preço/noite</th>
+        <th>Status</th>
+        <th>Cadastrado em</th>
+        <th class="text-end">Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+
+      {% for record in records %}
+
+      <tr>
+
+        <!-- Título -->
+        <td class="fw-semibold">
+          {{ record['titulo'] }}
+        </td>
+
+
+        <!-- Tipo -->
+        <td>
+          {{ record['tipo'] }}
+        </td>
+
+
+        <!-- Capacidade -->
+        <td>
+          {{ record['capacidade'] }} pessoa(s)
+        </td>
+
+
+        <!-- Quartos -->
+        <td>
+          {{ record['qtd_quartos'] }}
+        </td>
+
+
+        <!-- Banheiros -->
+        <td>
+          {{ record['qtd_banheiros'] }}
+        </td>
+
+
+        <!-- Aceita pet -->
+        <td>
+          {% if record['aceita_pet'] == 1 %}
+            <span class="badge text-bg-success">
+              Sim
+            </span>
+          {% else %}
+            <span class="badge text-bg-secondary">
+              Não
+            </span>
+          {% endif %}
+        </td>
+
+
+        <!-- Preço -->
+        <td>
+          R$ {{ "%.2f"|format(record['preco_noite']) }}
+        </td>
+
+
+        <!-- Status -->
+        <td>
+          {% if record['status'] == 'DISPONIVEL' %}
+
+            <span class="badge text-bg-success">
+              Disponível
+            </span>
+
+          {% elif record['status'] == 'INDISPONIVEL' %}
+
+            <span class="badge text-bg-danger">
+              Indisponível
+            </span>
+
+          {% elif record['status'] == 'MANUTENCAO' %}
+
+            <span class="badge text-bg-warning">
+              Manutenção
+            </span>
+
+          {% else %}
+
+            <span class="badge text-bg-secondary">
+              {{ record['status'] }}
+            </span>
+
+          {% endif %}
+        </td>
+
+
+        <!-- Data de cadastro -->
+        <td>
+          {{ record['data_cadastro'] }}
+        </td>
+
+
+        <!-- Ações -->
+        <td class="text-end">
+
+          <a
+            class="btn btn-sm btn-outline-primary"
+            href="{{ url_for(
+              'acomodacoes.editar_registro',
+              record_id=record['id_acomodacao']
+            ) }}"
+          >
+            Editar
+          </a>
+
+          <form
+            class="d-inline"
+            method="post"
+            action="{{ url_for(
+              'acomodacoes.excluir_registro',
+              record_id=record['id_acomodacao']
+            ) }}"
+          >
+
+            <button
+              class="btn btn-sm btn-outline-danger"
+              type="submit"
+              onclick="return confirm('Excluir esta acomodação?')"
+            >
+              Excluir
+            </button>
+
+          </form>
+
+        </td>
+
+      </tr>
+
+      {% endfor %}
+
+    </tbody>
+
+  </table>
+
+</div>
+
+{% else %}
+
+<div class="alert alert-info">
+  Nenhuma acomodação cadastrada.
+  <a href="{{ url_for('acomodacoes.novo_registro') }}">
+    Cadastre a primeira acomodação.
+  </a>
+</div>
+
+{% endif %}
+
+{% endblock %}

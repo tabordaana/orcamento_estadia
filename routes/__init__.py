@@ -1,7 +1,7 @@
 from routes.auth import auth_bp
 from routes.main import main_bp
 from routes.records import records_bp as records_bp
-from routes.hospedagens import records_bp as hospedagens_bp
+from routes.acomodacoes import records_bp as acomodacoes_bp
 
 
 
@@ -10,4 +10,4 @@ def register_blueprints(app):
     app.register_blueprint(main_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(records_bp)
-    app.register_blueprint(hospedagens_bp)
+    app.register_blueprint(acomodacoes_bp)

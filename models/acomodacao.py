@@ -5,7 +5,7 @@ def listar_registros():
     connection = get_db_connection()
     try:
         return connection.execute(
-            "SELECT * FROM records ORDER BY created_at DESC"
+            "SELECT * FROM acomodacao ORDER BY created_at DESC"
         ).fetchall()
     finally:
         connection.close()
@@ -15,7 +15,7 @@ def buscar_registro(record_id):
     connection = get_db_connection()
     try:
         return connection.execute(
-            "SELECT * FROM records WHERE id = ?", (record_id,)
+            "SELECT * FROM acomodacao WHERE id = ?", (record_id,)
         ).fetchone()
     finally:
         connection.close()

@@ -1,0 +1,295 @@
+{% extends "base.html" %}
+
+{% block title %}{{ 'Editar' if record else 'Nova' }} acomodação | Meu Projeto{% endblock %}
+
+{% block content %}
+
+<div class="form-card card shadow-sm mx-auto">
+  <div class="card-body p-4">
+
+    <h1 class="h3 mb-3">
+      {{ 'Editar' if record else 'Nova' }} acomodação
+    </h1>
+
+    <p class="text-body-secondary">
+      Preencha os dados da acomodação.
+    </p>
+
+    <form method="post">
+
+      <!-- Anfitrião -->
+      <div class="mb-3">
+        <label class="form-label" for="id_anfitriao">
+          ID do anfitrião
+        </label>
+
+        <input
+          class="form-control"
+          type="number"
+          id="id_anfitriao"
+          name="id_anfitriao"
+          value="{{ record['id_anfitriao'] if record else '' }}"
+          min="1"
+          
+          required
+        >
+      </div>
+
+
+      <!-- Endereço -->
+      <div class="mb-3">
+        <label class="form-label" for="id_endereco">
+          ID do endereço
+        </label>
+
+
+      </div>
+
+
+      <!-- Título -->
+      <div class="mb-3">
+        <label class="form-label" for="titulo">
+          Título
+        </label>
+
+        <input
+          class="form-control"
+          type="text"
+          id="titulo"
+          name="titulo"
+          maxlength="150"
+          value="{{ record['titulo'] if record else '' }}"
+          required
+        >
+      </div>
+
+
+      <!-- Descrição -->
+      <div class="mb-3">
+        <label class="form-label" for="descricao">
+          Descrição
+        </label>
+
+        <textarea
+          class="form-control"
+          id="descricao"
+          name="descricao"
+          rows="4"
+        >{{ record['descricao'] if record else '' }}</textarea>
+      </div>
+
+
+      <!-- Tipo -->
+      <div class="mb-3">
+        <label class="form-label" for="tipo">
+          Tipo de acomodação
+        </label>
+
+        <input
+          class="form-control"
+          type="text"
+          id="tipo"
+          name="tipo"
+          maxlength="50"
+          value="{{ record['tipo'] if record else '' }}"
+          placeholder="Ex.: Casa, Apartamento, Quarto"
+          required
+        >
+      </div>
+
+
+      <!-- Área -->
+      <div class="mb-3">
+        <label class="form-label" for="area_m2">
+          Área (m²)
+        </label>
+
+        <input
+          class="form-control"
+          type="number"
+          id="area_m2"
+          name="area_m2"
+          value="{{ record['area_m2'] if record else '' }}"
+          min="0.01"
+          step="0.01"
+          required
+        >
+      </div>
+
+
+      <!-- Capacidade -->
+      <div class="mb-3">
+        <label class="form-label" for="capacidade">
+          Capacidade de hóspedes
+        </label>
+
+        <input
+          class="form-control"
+          type="number"
+          id="capacidade"
+          name="capacidade"
+          value="{{ record['capacidade'] if record else '' }}"
+          min="1"
+          required
+        >
+      </div>
+
+
+      <!-- Quartos -->
+      <div class="mb-3">
+        <label class="form-label" for="qtd_quartos">
+          Quantidade de quartos
+        </label>
+
+        <input
+          class="form-control"
+          type="number"
+          id="qtd_quartos"
+          name="qtd_quartos"
+          value="{{ record['qtd_quartos'] if record else '1' }}"
+          min="0"
+          required
+        >
+      </div>
+
+
+      <!-- Banheiros -->
+      <div class="mb-3">
+        <label class="form-label" for="qtd_banheiros">
+          Quantidade de banheiros
+        </label>
+
+        <input
+          class="form-control"
+          type="number"
+          id="qtd_banheiros"
+          name="qtd_banheiros"
+          value="{{ record['qtd_banheiros'] if record else '1' }}"
+          min="0"
+          required
+        >
+      </div>
+
+
+      <!-- Aceita pets -->
+      <div class="mb-3">
+        <label class="form-label" for="aceita_pet">
+          Aceita pets?
+        </label>
+
+        <select
+          class="form-select"
+          id="aceita_pet"
+          name="aceita_pet"
+          required
+        >
+          <option
+            value="0"
+            {% if record and record['aceita_pet'] == 0 %}selected{% endif %}
+          >
+            Não
+          </option>
+
+          <option
+            value="1"
+            {% if record and record['aceita_pet'] == 1 %}selected{% endif %}
+          >
+            Sim
+          </option>
+        </select>
+      </div>
+
+
+      <!-- Taxa pet -->
+      <div class="mb-3">
+        <label class="form-label" for="taxa_pet">
+          Taxa para pets (R$)
+        </label>
+
+        <input
+          class="form-control"
+          type="number"
+          id="taxa_pet"
+          name="taxa_pet"
+          value="{{ record['taxa_pet'] if record else '0.00' }}"
+          min="0"
+          step="0.01"
+          required
+        >
+      </div>
+
+
+      <!-- Preço por noite -->
+      <div class="mb-3">
+        <label class="form-label" for="preco_noite">
+          Preço por noite (R$)
+        </label>
+
+        <input
+          class="form-control"
+          type="number"
+          id="preco_noite"
+          name="preco_noite"
+          value="{{ record['preco_noite'] if record else '' }}"
+          min="0"
+          step="0.01"
+          required
+        >
+      </div>
+
+
+      <!-- Status -->
+      <div class="mb-3">
+        <label class="form-label" for="status">
+          Status
+        </label>
+
+        <select
+          class="form-select"
+          id="status"
+          name="status"
+          required
+        >
+          <option
+            value="DISPONIVEL"
+            {% if not record or record['status'] == 'DISPONIVEL' %}selected{% endif %}
+          >
+            Disponível
+          </option>
+
+          <option
+            value="INDISPONIVEL"
+            {% if record and record['status'] == 'INDISPONIVEL' %}selected{% endif %}
+          >
+            Indisponível
+          </option>
+
+          <option
+            value="MANUTENCAO"
+            {% if record and record['status'] == 'MANUTENCAO' %}selected{% endif %}
+          >
+            Em manutenção
+          </option>
+        </select>
+      </div>
+
+
+      <!-- Botões -->
+      <button class="btn btn-primary" type="submit">
+        Salvar
+      </button>
+
+      <a
+        class="btn btn-outline-secondary"
+        href="{{ url_for('acomodacoes.listar_registros') }}"
+      >
+        Cancelar
+      </a>
+
+    </form>
+
+  </div>
+</div>
+
+{% endblock %}
+
